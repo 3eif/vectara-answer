@@ -24,6 +24,14 @@ const languageOptions = SUMMARY_LANGUAGES.map((code) => ({
   label: humanizeLanguage(code),
 }));
 
+const timeFrameOptions = [
+  { value: "any", label: "Any time" },
+  { value: "day", label: "Past day" },
+  { value: "week", label: "Past week" },
+  { value: "month", label: "Past month" },
+  { value: "year", label: "Past year" },
+];
+
 type Props = {
   isHistoryOpen: boolean;
   onToggleHistory: () => void;
@@ -40,11 +48,13 @@ export const SearchControls = ({
     searchValue,
     setSearchValue,
     language,
+    timeFrame,
     onSearch,
     reset,
   } = useSearchContext();
   const { searchHeader, filters } = useConfigContext();
   const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+  const [isTimeFrameMenuOpen, setIsTimeFrameMenuOpen] = useState(false);
 
   const onSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
@@ -117,6 +127,38 @@ export const SearchControls = ({
                 </VuiTitle>
               </VuiFlexItem>
             )}
+
+            <VuiFlexItem grow={false}>
+              <VuiPopover
+                isOpen={isTimeFrameMenuOpen}
+                setIsOpen={setIsTimeFrameMenuOpen}
+                button={
+                  <VuiButtonEmpty
+                    color="normal"
+                    size="s"
+                    icon={
+                      <VuiIcon size="m">
+                        <BiCaretDown />
+                      </VuiIcon>
+                    }
+                  >
+                    Any time
+                  </VuiButtonEmpty>
+                }
+              >
+                <VuiOptionsList
+                  isSelectable
+                  onSelectOption={(value) => {
+                    setIsTimeFrameMenuOpen(false);
+                    onSearch({
+                      timeFrame: value as string,
+                    });
+                  }}
+                  selectedOption={timeFrame}
+                  options={timeFrameOptions}
+                />
+              </VuiPopover>
+            </VuiFlexItem>
 
             <VuiFlexItem grow={false}>
               <VuiPopover

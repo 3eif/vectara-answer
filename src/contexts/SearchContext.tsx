@@ -31,11 +31,13 @@ interface SearchContextType {
     value,
     filter,
     language,
+    timeFrame,
     isPersistable,
   }: {
     value?: string;
     filter?: string;
     language?: SummaryLanguage;
+    timeFrame?: string;
     isPersistable?: boolean;
   }) => void;
   reset: () => void;
@@ -47,6 +49,7 @@ interface SearchContextType {
   summarizationError: any;
   summarizationResponse: SearchResponse | undefined;
   language: SummaryLanguage;
+  timeFrame: string;
   summaryNumResults: number;
   summaryNumSentences: number;
   history: HistoryItem[];
@@ -289,6 +292,7 @@ export const SearchContextProvider = ({ children }: Props) => {
         summarizationError,
         summarizationResponse,
         language: getLanguage(),
+        timeFrame: "any",
         summaryNumResults: summary.summaryNumResults,
         summaryNumSentences: summary.summaryNumSentences,
         history,
