@@ -96,3 +96,11 @@ const codeToLanguageMap: Record<SummaryLanguage, string> = {
 export const humanizeLanguage = (language: SummaryLanguage): string => {
   return codeToLanguageMap[language];
 };
+
+export enum TimeFrame {
+  ANY_TIME = "ANY_TIME",
+  PAST_DAY = "PAST_DAY",
+  PAST_WEEK = "PAST_WEEK",
+  PAST_MONTH = "PAST_MONTH",
+  PAST_YEAR = "PAST_YEAR"
+}
